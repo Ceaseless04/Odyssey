@@ -12,14 +12,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                .csrf(csrf -> csrf.disable())
-                .authorizeHttpRequests(auth -> auth
-                                .requestMatchers("/auth/**").permitAll()
-                                .anyRequest().authenticated()
-                )
-                .oauth2Login(withDefaults())
-                .logout(logout -> logout.logoutSuccessUrl("/auth/logout"));
-
+            .authorizeHttpRequests(auth -> auth
+                            .anyRequest().authenticated()
+            )
+            .oauth2Login(withDefaults()); // Enables OAuth2 Login
         return http.build();
     }
 }
